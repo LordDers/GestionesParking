@@ -96,7 +96,9 @@ public class GestionParking extends HttpServlet {
 		} else if (gestion.equals("borrar_vehiculo")){
 			System.out.println("borrando");
 			String matricula = request.getParameter("matricula1");
-			ParkingVehiculos.borrarVehiculo(matricula);
+			//ParkingVehiculos.borrarVehiculo(matricula);
+			// Lo borra pero hasta actualizar la página, lo sigue mostrando
+			ParkingVehiculos.borrarVehiculosFichero(matricula);
 			
 			response(response, "Se ha borrado correctamente el vehículo con matricula " + matricula);
 			

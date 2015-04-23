@@ -162,7 +162,7 @@ public class ParkingVehiculos {
 	public static final void leerVehiculos() {
 		// Leer "vehiculos.txt"
 		try {
-			BufferedReader br2 = new BufferedReader(new FileReader("ficheros/vehiculos.txt"));
+			BufferedReader br2 = new BufferedReader(new FileReader("/home/zubiri/ProyectosJava/GestionesParking/WebContent/ficheros/vehiculos.txt"));
 
 			String linea2 = br2.readLine();
 			String [] camposSeparados2 = null;
@@ -226,7 +226,7 @@ public class ParkingVehiculos {
 	}
 	
 	public final static void anyadirVehiculosFichero(Coche vehiculo) throws IOException {		
-		File TextFile = new File("ficheros/vehiculos.txt"); 
+		File TextFile = new File("/home/zubiri/ProyectosJava/GestionesParking/WebContent/ficheros/vehiculos.txt"); 
 		FileWriter TextOut = new FileWriter(TextFile, true);
 		
 		TextOut.write(vehiculo.getNumRuedas() + ", ");
@@ -250,7 +250,7 @@ public class ParkingVehiculos {
 		try {
 			String line1 = "";
 			
-			String file = "/home/zubiri/ProyectosJava/java2_ParkingVehiculos/ficheros/vehiculos.txt";
+			String file = "/home/zubiri/ProyectosJava/GestionesParking/WebContent/ficheros/vehiculos.txt";
 			File inFile = new File(file);
 			
 			if (!inFile.isFile()) {
@@ -300,7 +300,7 @@ public class ParkingVehiculos {
 		try {
 			String line1 = "";
 			
-			String file = "/home/zubiri/ProyectosJava/java2_ParkingVehiculos/ficheros/vehiculos.txt";
+			String file = "/home/zubiri/ProyectosJava/GestionesParking/WebContent/ficheros/vehiculos.txt";
 			File inFile = new File(file);
 			
 			if (!inFile.isFile()) {
