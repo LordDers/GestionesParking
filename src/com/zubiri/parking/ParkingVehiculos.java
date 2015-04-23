@@ -2,9 +2,11 @@ package com.zubiri.parking;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -155,6 +157,8 @@ public class ParkingVehiculos {
 		return parkingStr;
 	}
 	
+	
+	// Ficheros
 	public static final void leerVehiculos() {
 		// Leer "vehiculos.txt"
 		try {
@@ -185,27 +189,6 @@ public class ParkingVehiculos {
 		} catch(IOException e) {
 			System.out.println("Error E/S: "+e);
 		}
-	}
-	
-	public final static void anyadirVehiculosFichero(Coche vehiculo) throws IOException {		
-		File TextFile = new File("ficheros/vehiculos.txt"); 
-		FileWriter TextOut = new FileWriter(TextFile, true);
-		
-		TextOut.write(vehiculo.getNumRuedas() + ", ");
-		if (vehiculo.isMotor()) {
-			TextOut.write("true" + ", ");
-		} else {
-			TextOut.write("false" + ", ");
-		}
-		TextOut.write(vehiculo.getMarca() + ", ");
-		TextOut.write(vehiculo.getMatricula() + ", ");
-		if (vehiculo.isAutomatico()) {
-			TextOut.write("true" + ", ");
-		} else {
-			TextOut.write("false, ");
-		}
-		TextOut.write(vehiculo.getConsumo100km() + "\n");
-		TextOut.close();
 	}
 	
 	public static final ArrayList<Vehiculo> leerVehiculos2() {
@@ -240,5 +223,76 @@ public class ParkingVehiculos {
 		}
 		
 		return vehiculos;
+	}
+	
+	public final static void anyadirVehiculosFichero(Coche vehiculo) throws IOException {		
+		File TextFile = new File("ficheros/vehiculos.txt"); 
+		FileWriter TextOut = new FileWriter(TextFile, true);
+		
+		TextOut.write(vehiculo.getNumRuedas() + ", ");
+		if (vehiculo.isMotor()) {
+			TextOut.write("true" + ", ");
+		} else {
+			TextOut.write("false" + ", ");
+		}
+		TextOut.write(vehiculo.getMarca() + ", ");
+		TextOut.write(vehiculo.getMatricula() + ", ");
+		if (vehiculo.isAutomatico()) {
+			TextOut.write("true" + ", ");
+		} else {
+			TextOut.write("false, ");
+		}
+		TextOut.write(vehiculo.getConsumo100km() + "\n");
+		TextOut.close();
+	}
+	
+	public final static void borrarVehiculosFichero(String matricula) throws IOException {		
+		try {
+			String line1 = "";
+			
+			String file = "/home/zubiri/ProyectosJava/java2_ParkingVehiculos/ficheros/vehiculos.txt";
+			File inFile = new File(file);
+			
+			if (!inFile.isFile()) {
+				System.out.println("No existe el fichero");
+				return;
+			}
+			
+			//Construct the new file that will later be renamed to the original filename. 
+			File tempFile = new File(inFile.getAbsolutePath() + ".tmp");
+
+			BufferedReader br = new BufferedReader(new FileReader(file));
+			PrintWriter pw = new PrintWriter(new FileWriter(tempFile));
+			//Read from the original file and write to the new 
+			//unless content matches data to be removed.
+			while ((line1 = br.readLine()) != null) {
+				if(line1.indexOf(matricula)!= -1) {
+					// Sólo escribiría la línea de la matrícula encontrada
+					//pw.println(line1);
+					//pw.flush();
+				} else {
+					// Esto escribe en el fichero
+					pw.println(line1);
+					pw.flush();
+				}
+			}
+			pw.close();
+			br.close();
+					   
+			//Delete the original file
+			if (!inFile.delete()) {
+				System.out.println("Could not delete file");
+				return;
+			}
+			
+			//Rename the new file to the filename the original file had.
+			if (!tempFile.renameTo(inFile)) {
+				System.out.println("Could not rename file");
+			}
+		} catch (FileNotFoundException e) {
+				e.printStackTrace();
+		} catch (IOException e) {
+		e.printStackTrace();
+		}
 	}
 }

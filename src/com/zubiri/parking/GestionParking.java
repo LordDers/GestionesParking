@@ -44,6 +44,8 @@ public class GestionParking extends HttpServlet {
 		response.setContentType( "text/html; charset=iso-8859-1" );
 		if (ParkingVehiculos.getVehiculos().size()==0){
 			//lectura del archivo
+			ParkingVehiculos.leerVehiculos2();
+			ParkingVehiculos.mostrarParkingVehiculos();
 			ParkingVehiculos.anyadirVehiculo(new Coche(4,true,"marca_prueba","0000AAA",true,50));
 			ParkingVehiculos.anyadirVehiculo(new Coche(4,true,"ferrari","0001ABA",true,100));
 			ParkingVehiculos.anyadirVehiculo(new Coche(4,true,"fiat","0002ACA",true,10));
@@ -53,8 +55,8 @@ public class GestionParking extends HttpServlet {
 		if (gestion.equals("mostrar_vehiculos")){
 			System.out.println("empieza mostrando");
 			//response(response,ParkingVehiculos.getVehiculos());
-			ParkingVehiculos.leerVehiculos2();
-			ParkingVehiculos.mostrarParkingVehiculos();
+			//ParkingVehiculos.leerVehiculos2();
+			//ParkingVehiculos.mostrarParkingVehiculos();
 			
 			PrintWriter out = response.getWriter();
 			out.println("<html>");
